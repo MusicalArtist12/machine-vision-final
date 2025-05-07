@@ -50,7 +50,8 @@ def main():
     save_callback = tf.keras.callbacks.ModelCheckpoint(
         MODEL_PATH,
         save_freq=50,
-        initial_value_threshold=None
+        initial_value_threshold=None,
+        save_weights_only=True
     )
 
     tensorboard_callback = keras.callbacks.TensorBoard(log_dir=LOG_PATH,update_freq = "batch")
