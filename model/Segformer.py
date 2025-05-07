@@ -48,7 +48,7 @@ def Segformer_B0(input_shape, num_classes):
         ) for i, param in enumerate(block_params)
     ]
 
-    shape = (input_shape[0], input_shape[1] // 2, input_shape[2] // 2, input_shape[3])
+    shape = (input_shape[0], input_shape[1], input_shape[2], input_shape[3])
 
     shapes = []
     for block in blocks:
