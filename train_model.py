@@ -39,7 +39,11 @@ def main():
             learning_rate=0.00006
         ),
         loss = keras.losses.BinaryCrossentropy(from_logits=True, axis = 0),
-        metrics = [keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU", axis = 0), keras.metrics.BinaryIoU(target_class_ids=[0], name="FalseIoU", axis = 0), keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU", axis = 0)],
+        metrics = [
+            keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU"),
+            keras.metrics.BinaryIoU(target_class_ids=[0], name="FalseIoU"),
+            keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU")
+        ],
         run_eagerly = False,
         steps_per_execution = 1,
         jit_compile = False

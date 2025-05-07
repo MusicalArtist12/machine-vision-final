@@ -17,7 +17,7 @@ def normalize_img(image, mask):
 
     # image = [720, 1280, 3], each pixel being [R, G, B], R, G, B in {x in float32 | 0.0 <= x <= 1.0}
     # mask = [720, 1280, 1], each pixel being [P], P in {x in float32 | 0.0 <= x <= 1.0 }
-    return tf.cast(image, tf.float32) / 255.0, tf.cast(mask, tf.float32) / 255.0
+    return tf.cast(image, tf.float32) / 255.0, tf.cast(mask, tf.float32)
 
 def load_data(batch_size) -> tuple[tf.data.Dataset, tf.data.Dataset]:
     (train, val) = tfds.load('bdd100k', split = ['train', 'val'], as_supervised = True)

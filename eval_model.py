@@ -23,6 +23,7 @@ def main():
 
     tf.keras.config.disable_traceback_filtering()
 
+    '''
     print("Loading")
 
     model = Segformer_B0(input_shape = (None, 720, 1280, 3), num_classes = 1)
@@ -43,14 +44,16 @@ def main():
     )
 
     model.load_weights(MODEL_PATH)
+    '''
 
     train, val = bdd100k.load_data(1)
 
     test = tfds.as_numpy(val)
 
     for element in test:
-        res = model(element[0])
+        # res = model(element[0])
 
+        '''
         while True:
             cv.imshow("window", element[0][0])
             cv.imshow("window2", element[1][0] * 255.0)
@@ -58,6 +61,8 @@ def main():
             cv.imshow("result", res.numpy()[0] * 255.0 )
             if cv.waitKey(1) == ord('q'):
                 break
+        '''
+        input()
 
 if __name__ == '__main__':
     main()
