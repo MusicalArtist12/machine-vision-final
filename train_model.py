@@ -42,7 +42,7 @@ def main():
         jit_compile = False
     )
 
-    if sys.argv[3] == "preload":
+    if len(sys.argv) > 3 and sys.argv[3] == "preload":
         model.load_weights(MODEL_PATH)
 
     print("Loading Data")
