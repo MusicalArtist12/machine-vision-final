@@ -15,6 +15,7 @@ import bdd100k_loader as bdd100k
 MODEL_PATH = "model.weights.h5"
 LOG_PATH = "/content/logs"
 BATCH_SIZE = 1
+NUM_EPOCHS = 50
 
 def main():
     keras.backend.clear_session()
@@ -58,7 +59,7 @@ def main():
 
     hist = model.fit(
         x = train,
-        epochs = max_epochs,
+        epochs = NUM_EPOCHS,
         validation_data = val,
         validation_freq = 1,
         validation_batch_size = 100,
