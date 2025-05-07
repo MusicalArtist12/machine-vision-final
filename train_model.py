@@ -36,7 +36,8 @@ def main():
     model.compile(
         optimizer = keras.optimizers.AdamW(
             gradient_accumulation_steps=16,
-            learning_rate=keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=0.00006, decay_steps=10000, decay_rate=0.9))),
+            learning_rate=keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=0.00006, decay_steps=10000, decay_rate=0.9)
+        ),
         loss = keras.losses.BinaryCrossentropy(from_logits=True),
         metrics = [keras.metrics.BinaryIoU(target_class_ids=[1], threshold=0.7)],
         run_eagerly = False,
