@@ -1,4 +1,4 @@
-TODO(bd100k): Markdown description of that will appear on the catalog page.
+TODO(bdd100k): Markdown description of that will appear on the catalog page.
 Description is **formatted** as markdown.
 
 It should also contain any processing which has been applied (if any),

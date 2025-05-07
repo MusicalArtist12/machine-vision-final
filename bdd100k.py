@@ -20,7 +20,7 @@ def normalize_img(image, mask):
     return tf.cast(image, tf.float32) / 255.0, tf.cast(mask, tf.float32) / 255.0
 
 def load_data(batch_size) -> tuple[tf.data.Dataset, tf.data.Dataset]:
-    (train, val) = tfds.load('bd100k', split = ['train', 'val'], as_supervised = True)
+    (train, val) = tfds.load('bdd100k', split = ['train', 'val'], as_supervised = True)
 
     train = train.map(normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
     val = val.map(normalize_img, num_parallel_calls=tf.data.AUTOTUNE)

@@ -1,4 +1,4 @@
-"""bd100k dataset."""
+"""bdd100k dataset."""
 
 import tensorflow_datasets as tfds
 import json
@@ -9,7 +9,7 @@ import posixpath
 
 
 class Builder(tfds.core.GeneratorBasedBuilder):
-    """DatasetBuilder for bd100k dataset."""
+    """DatasetBuilder for bdd100k dataset."""
 
     VERSION = tfds.core.Version('1.0.0')
     RELEASE_NOTES = {
@@ -18,7 +18,7 @@ class Builder(tfds.core.GeneratorBasedBuilder):
 
     def _info(self) -> tfds.core.DatasetInfo:
         """Returns the dataset metadata."""
-        # TODO(bd100k): Specifies the tfds.core.DatasetInfo object
+        # TODO(bdd100k): Specifies the tfds.core.DatasetInfo object
         return self.dataset_info_from_configs(
             features = tfds.features.FeaturesDict({
                 # These are the features of your dataset like images, labels ...
@@ -52,7 +52,7 @@ class Builder(tfds.core.GeneratorBasedBuilder):
         }
 
     def _generate_examples(self, image_path, seg_path):
-        
+
         image_list = []
 
         for image in image_path.glob("*.jpg"):
@@ -61,7 +61,7 @@ class Builder(tfds.core.GeneratorBasedBuilder):
                 print(f"removing {image} (shape == {image_mat.shape})")
             else:
                 image_list.append(image)
-                
+
         for image in image_list:
 
 
@@ -86,7 +86,7 @@ class Builder(tfds.core.GeneratorBasedBuilder):
                 150
             ])
             mask = cv.inRange(hsv, lower, upper)
-            
+
             res = cv.bitwise_and(img, img, mask = mask)
             res = cv.cvtColor(res, cv.COLOR_BGR2GRAY)
             ret, res = cv.threshold(res, 0, 255, cv.THRESH_BINARY)
@@ -96,12 +96,12 @@ class Builder(tfds.core.GeneratorBasedBuilder):
 
             final[res == (255)] = (1)
             # print(f'{img_id} - {mask_id}')
-            
+
             # cv.imshow("window", final)
             # cv.waitKey(10)
 
 
             yield img_id, {
-                'image': str(image_path / img_id), 
+                'image': str(image_path / img_id),
                 'seg_map': final
             }
