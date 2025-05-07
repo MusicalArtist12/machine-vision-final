@@ -51,6 +51,8 @@ def main():
         initial_value_threshold=None
     )
 
+    tensorboard_callback = keras.callbacks.TensorBoard(log_dir=LOG_PATH,update_freq = "batch")
+
     epoch_counter = 0
 
     hist = model.fit(
@@ -62,7 +64,7 @@ def main():
         validation_steps = 1,
         verbose = 1,
         # steps_per_epoch = 10,
-        callbacks = [save_callback],
+        callbacks = [save_callback, tensorboard_callback],
         # callbacks = [tensorboard_callback]
     )
     model.save_weights(MODEL_PATH)
