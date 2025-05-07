@@ -10,7 +10,7 @@ import keras
 import gc
 import cv2 as cv
 
-import bdd100k
+import bdd100k_loader as bdd100k
 
 MODEL_PATH = "model.weights.h5"
 LOG_PATH = "/content/logs"
