@@ -13,7 +13,7 @@ import sys
 
 import bdd100k_loader as bdd100k
 
-MODEL_PATH = "model.weights.h5"
+MODEL_PATH = "the_model_that_found_the_union_of_the_dataset.weights.h5"
 
 BATCH_SIZE = 1
 NUM_EPOCHS = 50
@@ -42,7 +42,7 @@ def main():
         jit_compile = False
     )
 
-    # model.load_weights(MODEL_PATH)
+    model.load_weights(MODEL_PATH)
 
     train, val = bdd100k.load_data(1)
 
