@@ -41,6 +41,8 @@ def main():
         jit_compile = False
     )
 
+    model.load_weights(MODEL_PATH)
+
     print("Loading Data")
 
     train, val = bdd100k.load_data(1)
