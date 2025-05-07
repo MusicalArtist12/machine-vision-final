@@ -9,11 +9,12 @@ import psutil
 import keras
 import gc
 import cv2 as cv
+import sys
 
 import bdd100k_loader as bdd100k
 
-MODEL_PATH = "model.weights.h5"
-LOG_PATH = "/content/logs"
+MODEL_PATH = sys.argv[2]
+LOG_PATH = sys.argv[1]
 BATCH_SIZE = 1
 NUM_EPOCHS = 50
 
@@ -41,9 +42,11 @@ def main():
         jit_compile = False
     )
 
-    model.load_weights(MODEL_PATH)
+    if sys.argv[3] == "preload":
+        model.load_weights(MODEL_PATH)
 
     print("Loading Data")
+
 
     train, val = bdd100k.load_data(1)
 
