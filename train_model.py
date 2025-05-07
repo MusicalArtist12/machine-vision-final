@@ -33,7 +33,7 @@ def main():
     print("Compiling")
 
     model.compile(
-        optimizer = keras.optimizers.Adam(gradient_accumulation_steps=32),
+        optimizer = keras.optimizers.AdamW(gradient_accumulation_steps=16),
         loss = keras.losses.BinaryCrossentropy(label_smoothing=0.2),
         metrics = [keras.metrics.BinaryIoU(), keras.metrics.BinaryCrossentropy()],
         run_eagerly = False,
