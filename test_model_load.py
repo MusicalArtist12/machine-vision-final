@@ -12,7 +12,7 @@ import cv2 as cv
 
 import bdd100k
 
-MODEL_PATH = "model.keras"
+MODEL_PATH = "model.weights.h5"
 BATCH_SIZE = 1
 
 def main():
@@ -22,13 +22,33 @@ def main():
 
     print("Loading Model")
 
-    model = keras.saving.load_model(MODEL_PATH)
+    model = Segformer_B0(input_shape = (None, 720, 1280, 3), num_classes = 1)
+
+    print("Building")
+
+    model.build((None, 720, 1280, 3))
+
+    print("Compiling")
+
+    model.compile(
+        optimizer = keras.optimizers.Adam(),
+        loss = keras.losses.BinaryCrossentropy(label_smoothing=0.2),
+        metrics = [keras.metrics.BinaryIoU(), keras.metrics.BinaryCrossentropy()],
+        run_eagerly = False,
+        steps_per_execution = 1,
+        jit_compile = False
+    )
+
+    print("Loading weights")
+
+    model.load_weights(MODEL_PATH)
 
     print("Loading Data")
 
     train, val = bdd100k.load_data(1)
 
-    print("Running fit to load weights")
+
+    print("Running fit to test weights")
 
     model.fit(x = train, steps_per_epoch = 10)
 

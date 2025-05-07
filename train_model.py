@@ -43,11 +43,28 @@ def main():
 
     train, val = bdd100k.load_data(1)
 
+    print("Training")
 
-    print("Running fit to load weights")
+    save_callback = tf.keras.callbacks.ModelCheckpoint(
+        MODEL_PATH,
+        save_freq=50,
+        initial_value_threshold=None
+    )
 
-    model.fit(x = train, steps_per_epoch = 10)
+    epoch_counter = 0
 
+    hist = model.fit(
+        x = train,
+        epochs = max_epochs,
+        validation_data = val,
+        validation_freq = 1,
+        validation_batch_size = 100,
+        validation_steps = 1,
+        verbose = 1,
+        # steps_per_epoch = 10,
+        callbacks = [save_callback],
+        # callbacks = [tensorboard_callback]
+    )
     model.save_weights(MODEL_PATH)
 
 if __name__ == '__main__':
