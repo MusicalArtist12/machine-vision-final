@@ -34,9 +34,11 @@ def main():
     print("Compiling")
 
     model.compile(
-        optimizer = keras.optimizers.AdamW(gradient_accumulation_steps=16),
-        loss = keras.losses.BinaryCrossentropy(label_smoothing=0.2),
-        metrics = [keras.metrics.BinaryIoU(), keras.metrics.BinaryCrossentropy()],
+        optimizer = keras.optimizers.AdamW(
+            gradient_accumulation_steps=16,
+            learning_rate=keras.optimizers.schedules.LearningRateSchedule(initial_learning_rate=0.00006)),
+        loss = keras.losses.BinaryCrossentropy(from_logits=True),
+        metrics = [keras.metrics.BinaryIoU(target_class_ids=[1], threshold=0.7)],
         run_eagerly = False,
         steps_per_execution = 1,
         jit_compile = False
@@ -60,6 +62,7 @@ def main():
     )
 
     tensorboard_callback = keras.callbacks.TensorBoard(log_dir=LOG_PATH,update_freq = "batch")
+
 
     epoch_counter = 0
 
