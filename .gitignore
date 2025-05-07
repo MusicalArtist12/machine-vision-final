@@ -1,0 +1,4 @@
+venv/*
+model.png
+Summary.txt
+__pycache__

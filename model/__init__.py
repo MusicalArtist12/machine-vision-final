@@ -1,0 +1,1 @@
+from .Segformer import (Segformer_B0)

@@ -1,0 +1,4 @@
+https://medium.com/@az.tayyebi/segformer-model-training-from-scratch-vs-using-hugging-face-f5234f31399a
+- Loss = BinaryCrossentropy
+- Metrics = BinaryIoU and maybe BinaryCrossentropy
+- Expect 13+ hours of training
