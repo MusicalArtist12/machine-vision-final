@@ -13,6 +13,7 @@ import cv2 as cv
 import bdd100k
 
 MODEL_PATH = "model.weights.h5"
+LOG_PATH = "/content/logs"
 BATCH_SIZE = 1
 
 def main():
@@ -70,5 +71,5 @@ def main():
     model.save_weights(MODEL_PATH)
 
 if __name__ == '__main__':
-    os.system("rm -rf /tmp/tfdbg2_logdir")
+    os.system("rm -rf /content/logs")
     main()
