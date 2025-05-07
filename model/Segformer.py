@@ -82,6 +82,8 @@ def Segformer_B0(input_shape, num_classes):
 
     input_layer = keras.layers.Input(shape=input_shape[1:], batch_size = input_shape[0])
 
+    x = input_layer
+
     encode_outputs = []
 
     for block in blocks:
