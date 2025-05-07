@@ -12,11 +12,6 @@ class DepthwiseConvolution(keras.Model):
         self.kernel_size = 3
         self.stride = 1
 
-    def get_config(self):
-        return {
-            "filters": self.filters,
-            **super().get_config(),
-        }
 
     def build(self, x_shape, H, W):
         self.reshape_1 = keras.layers.Reshape((H, W, -1), name = "DepthwiseConv_ReshapeIn")
@@ -36,7 +31,6 @@ class DepthwiseConvolution(keras.Model):
 
         self.reshape_2 = keras.layers.Reshape(self.shape_outputted, name = "DepthwiseConv_Reshape_Out")
 
-        # keras.utils.plot_model(self, show_shapes = True, expand_nested = True, show_layer_names = True)
 
     def compute_output_shape(self, x_shape, **kwargs):
         x = keras.layers.Input(x_shape[1:], batch_size = x_shape[0])

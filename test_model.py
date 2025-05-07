@@ -13,6 +13,9 @@ import cv2 as cv
 LOG_PATH = "/tmp/tfdbg2_logdir"
 MODEL_PATH = "model.keras"
 
+NUM_EPOCHS = 10
+BATCH_SIZE = 2
+
 class Dataset(NamedTuple):
     train: any
     val: any
@@ -113,9 +116,8 @@ def main():
 
     tf.keras.config.disable_traceback_filtering()
 
-    batch_size = 12
 
-    data = load_data(batch_size = batch_size)
+    data = load_data(batch_size = BATCH_SIZE)
 
     try:
         model = keras.saving.load_model(MODEL_PATH, compile=True, safe_mode=True)
@@ -126,9 +128,9 @@ def main():
         print("Loading a new model")
         model = Segformer_B0(input_shape = (None, 720, 1280, 3), num_classes = 1)
         model.build((None, 720, 1280, 3))
-        lr_schedule = keras.optimizers.schedules.CosineDecay(0.1, 1000)
+
         model.compile(
-            optimizer = keras.optimizers.Adam(learning_rate=lr_schedule),
+            optimizer = keras.optimizers.Adam(),
             loss = keras.losses.BinaryCrossentropy(label_smoothing=0.2),
             metrics = [keras.metrics.BinaryIoU(), keras.metrics.BinaryCrossentropy()],
             run_eagerly = False,
@@ -145,11 +147,12 @@ def main():
             line_length = 150,
             print_fn = output_summary
         )
+
         tf.keras.utils.plot_model(model, show_shapes = True, expand_nested = True, show_layer_names = True)
 
     print(data.val)
 
-    run_model(model, data)
+    run_model(model, data, NUM_EPOCHS)
 
     cv.namedWindow("original")
     cv.namedWindow("mask")

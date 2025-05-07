@@ -6,10 +6,10 @@ import math
 # https://arxiv.org/pdf/1706.03762 - Attention is all you need
 # https://arxiv.org/pdf/2010.11929 - AN IMAGE IS WORTH 16X16 WORDS: TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE\
 
-# https://github.com/NVlabs/SegFormer/blob/master/mmseg/models/backbones/mix_transformer.py 
+# https://github.com/NVlabs/SegFormer/blob/master/mmseg/models/backbones/mix_transformer.py
 # lines 96-117
 
-# used in each block 
+# used in each block
 @keras.saving.register_keras_serializable()
 class MultiHeadAttention(keras.Model):
     def __init__(self, dim, num_heads, sr_ratio, attn_drop = 0.0, proj_drop = 0.0, **kwargs):
@@ -19,7 +19,7 @@ class MultiHeadAttention(keras.Model):
         self.head_dim = self.dim // self.num_heads
         self.sr_ratio = sr_ratio   # do we reduce the size of the K V
 
-        self.units = self.num_heads * self.head_dim   # v, k, q units 
+        self.units = self.num_heads * self.head_dim   # v, k, q units
         self.sqrt_of_units = math.sqrt(self.head_dim)
         self.attn_drop_val = attn_drop
         self.proj_drop_val = proj_drop
@@ -32,16 +32,6 @@ class MultiHeadAttention(keras.Model):
 
         self.final_reshape = keras.layers.Reshape((-1, self.units), name = "MHA_Reshape_Out")
 
-    def get_config(self):
-        return {
-            "dim": self.dim,
-            "num_heads": self.num_heads,
-            "sr_ratio": self.sr_ratio,
-            "attn_drop": self.attn_drop_val,
-            "proj_drop": self.proj_drop_val,
-            **super().get_config(),
-        }
-        
     def build(self, x_shape, H, W):
         B = x_shape[0]
         N = x_shape[1]
@@ -57,7 +47,7 @@ class MultiHeadAttention(keras.Model):
 
         self.q.build(x_shape)
 
-        if self.sr_ratio > 1: 
+        if self.sr_ratio > 1:
             self.sr = keras.Sequential([
                 keras.layers.Permute((2, 1), name = "SR_PermIn"),
                 keras.layers.Reshape((C, H, W), name = "SR_ReshapeIn"),
@@ -80,7 +70,6 @@ class MultiHeadAttention(keras.Model):
 
         self.built = True
         super().build(x_shape)
-        # tf.keras.utils.plot_model(self, show_shapes = True, expand_nested = True, show_layer_names = True)
 
     def compute_output_shape(self, x_shape, **kwargs):
         x = keras.layers.Input(x_shape[1:], batch_size = x_shape[0])

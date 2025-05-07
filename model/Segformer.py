@@ -28,7 +28,7 @@ def Segformer_B0(input_shape, num_classes):
     depths = [x.depth for x in block_params]
     dpr = [x for x in ops.linspace(0.0, drop_path_rate, sum(depths))]
 
-    
+
     decode_dim = 256
 
     blocks = [
@@ -53,14 +53,14 @@ def Segformer_B0(input_shape, num_classes):
 
     shapes = []
     for block in blocks:
-        block.build(shape)  
+        block.build(shape)
         # print(f"Segformer - {shape}")
         shape = block.compute_output_shape(shape)
         # print(f"Segformer recieved {shape}")
         shapes.append(shape)
 
     mlp = LayerMLP(decode_dim)
-    
+
     mlp.build(shapes)
 
     shape = mlp.compute_output_shape(shapes)
@@ -69,7 +69,7 @@ def Segformer_B0(input_shape, num_classes):
     predictor.build(shape)
 
     resize = ResizeLayer(720, 1280)
-    
+
     # softmax = keras.layers.Softmax(axis = 2)
 
     '''
@@ -107,88 +107,3 @@ def Segformer_B0(input_shape, num_classes):
     x = resize(x)
 
     return keras.Model(inputs = input_layer, outputs = x, name = "Segformer_B0")
-'''
-class Segformer_B0(keras.Model):
-    def __init__(self, input_shape, num_classes):
-        super().__init__()
-        block1 = TransformerBlockParams(2, 7, 4, 32, 1, 8, 4)
-        block2 = TransformerBlockParams(2, 3, 2, 64, 2, 4, 4)
-        block3 = TransformerBlockParams(2, 3, 2, 160, 8, 1, 4)
-        block4 = TransformerBlockParams(2, 3, 2, 256, 8, 1, 4)
-
-        attn_drop = 0.0
-        proj_drop = 0.0
-        drop_path_rate = 0.0
-
-        block_params = [block1, block2, block3, block4]
-
-        depths = [x.depth for x in block_params]
-        dpr = [x for x in ops.linspace(0.0, drop_path_rate, sum(depths))]
-
-        decode_dim = 256
-
-        self.blocks = [
-            TransformerBlock(
-                param.depth,
-                param.patch_size,
-                param.stride,
-                param.dim,Final-Project/test_model.py
-                param.num_heads,
-                param.sr_ratio,
-                attn_drop,
-                proj_drop,
-                dpr,
-                sum(depths[0:i]),
-                param.mlp_ratio
-            ) for i, param in enumerate(block_params)
-        ]
-
-        shape = input_shape
-        shapes = []
-        for block in self.blocks:
-            block.build(shape)  
-            # print(f"Segformer - {shape}")
-            shape = block.compute_output_shape(shape)
-            # print(f"Segformer recieved {shape}")
-            shapes.append(shape)
-
-        self.mlp = LayerMLP(decode_dim)
-        
-        self.mlp.build(shapes)
-
-        shape = self.mlp.compute_output_shape(shapes)
-
-        self.predictor = Predictor(decode_dim, num_classes)
-        self.predictor.build(shape)
-
-        self.flatten = keras.layers.Flatten()
-
-        self.decode_dense = keras.layers.Dense(units = 40)
-        self.reshape_final = keras.layers.Reshape((10, 4))
-
-        # print("Segformer - finished")
-        
-
-    def build(self, input_shape):
-        # print(f"Segformer - Building {input_shape}")
-        input_layer = keras.layers.Input(shape=input_shape[1:], batch_size = input_shape[0])
-        x = self.call(input_layer)
-
-    def call(self, x):
-        encode_outputs = []
-
-        for block in self.blocks:
-            x = block(x)
-            encode_outputs.append(x)
-
-        x = self.mlp(encode_outputs)
-
-        x = self.predictor(x)
-
-        x = self.flatten(x)
-
-        x = self.decode_dense(x)
-        x = self.reshape_final(x)
-
-        return x
-'''

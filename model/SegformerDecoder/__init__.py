@@ -9,19 +9,14 @@ class LayerMLP(keras.Model):
     def __init__(self, dim):
         super().__init__(name = "LayerMLP")
         self.decode_dim = dim
-        
 
-    def get_config(self):
-        return {
-            "dim": self.decode_dim
-        }
 
     def build(self, input_shapes):
         shape = input_shapes[0]
         self.mlps = [
             PerLayerMLP(self.decode_dim, shape[1], shape[2], name = f"PerLayerMLP_{idx}") for idx, _ in enumerate(input_shapes)
         ]
-        
+
         for input_shape, mlp in zip(input_shapes, self.mlps):
             mlp.build(input_shape)
 
@@ -38,12 +33,6 @@ class Predictor(keras.Model):
         super().__init__(name = "Predictor")
         self.filters = dim
         self.num_classes = num_classes
-
-    def get_config(self):
-        return {
-            "dim": self.filters,
-            "num_classes": self.num_classes
-        }
 
     def build(self, x_shape):
         # print(f"Predictor - building for shape {x_shape}")

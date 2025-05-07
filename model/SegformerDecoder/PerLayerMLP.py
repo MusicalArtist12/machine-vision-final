@@ -16,14 +16,6 @@ class PerLayerMLP(keras.Model):
 
         self.resize_layer = ResizeLayer(H, W, name = "PerLayerMLP_Resize")
 
-    def get_config(self):
-        return {
-            "dim": self.dim,
-            "H": self.H,
-            "W": self.W,
-            **super().get_config(),
-        }
-
     def build(self, x_shape):
         x = keras.layers.Input(x_shape[1:], batch_size = x_shape[0])
         self.call(x)

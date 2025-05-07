@@ -12,12 +12,6 @@ class DropPath(keras.layers.Layer):
         self.drop_path = drop_path
 
 
-    def get_config(self):
-        return {
-            "drop_path": self.drop_path,
-            **super().get_config(),
-        }
-
     def call(self, x, training = None):
         if training:
             keep_prop = 1 - self.drop_path

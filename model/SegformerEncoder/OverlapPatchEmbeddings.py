@@ -8,7 +8,7 @@ import math
 class OverlapPatchEmbeddings(keras.Model):
     def compute_output_shape_with_WH(self, x_shape):
         return self.compute_output_shape(x_shape), self.W, self.H
-    
+
     def compute_output_shape(self, x_shape):
         x = keras.layers.Input(x_shape[1:], batch_size = x_shape[0])
         x = self.call(x)
@@ -23,7 +23,7 @@ class OverlapPatchEmbeddings(keras.Model):
         return x
 
     def build(self, x_shape):
-        
+
         # print(f"building patchembedings for {x_shape}")
 
         # self.batch_size = x_shape[0]
@@ -51,7 +51,7 @@ class OverlapPatchEmbeddings(keras.Model):
 
         self.norm = keras.layers.LayerNormalization(epsilon = 1e-05, name = "PatchEmbed_Normalization")
         self.norm.build(shape)
-        
+
         # this output shape will be (batch_size, H * W, filters)
 
         self.built = True
@@ -59,8 +59,8 @@ class OverlapPatchEmbeddings(keras.Model):
 
 
     def __init__(self,
-        patch_size, 
-        stride, 
+        patch_size,
+        stride,
         filters,
         **kwargs
     ):
@@ -69,11 +69,3 @@ class OverlapPatchEmbeddings(keras.Model):
         self.kernel_size = patch_size
         self.stride = stride
         self.filters = filters
-
-    def get_config(self):
-        return {
-            "patch_size": self.kernel_size,
-            "stride": self.stride,
-            "filters": self.filters,
-            **super().get_config(),
-        }

@@ -5,7 +5,7 @@ from .BlockLayer import BlockLayer
 import keras
 from keras import ops
 
-# https://arxiv.org/pdf/2105.15203v3 
+# https://arxiv.org/pdf/2105.15203v3
 @keras.saving.register_keras_serializable()
 class TransformerBlock(keras.Model):
     def __init__(
@@ -42,30 +42,14 @@ class TransformerBlock(keras.Model):
                 dim,
                 num_heads,
                 sr_ratio,
-                attn_drop, 
+                attn_drop,
                 proj_drop,
                 dpr[current_rate + i],
                 mlp_ratio
             ) for i in range(depth)
         ]
         self.norm = keras.layers.LayerNormalization(epsilon=1e-05)
-        
-    
-    def get_config(self):
-        return {
-            "depth": self.depth,
-            "patch_size": self.patch_size,
-            "stride": self.stride,
-            "dim": self.dim,
-            "num_heads": self.num_heads,
-            "sr_ratio": self.sr_ratio,
-            "attn_drop": self.attn_drop,
-            "proj_drop": self.proj_drop,
-            "dpr": self.dpr,
-            "current_rate": self.current_rate,
-            "mlp_ratio": self.mlp_ratio,
-            **super().get_config(),
-        }
+
 
     def build(self, x_shape):
         self.patch_embed.build(x_shape)
@@ -73,14 +57,14 @@ class TransformerBlock(keras.Model):
 
         for layer in self.block_layers:
             layer.build(shape, W, H)
-        
+
         self.reshape = keras.layers.Reshape((H, W, -1))
         self.expected_output_shape = self.reshape.compute_output_shape(self.block_layers[0].compute_output_shape(shape))
 
         self.built = True
 
         # keras.utils.plot_model(self, show_shapes = True, expand_nested = True, show_layer_names = True)
-   
+
         # print(f"PatchEncoder.build() - {x_shape} -> {self.expected_output_shape}")
 
     def compute_output_shape(self, x_shape):

@@ -8,13 +8,6 @@ class ResizeLayer(keras.layers.Layer):
         super().__init__(**kwargs)
         self.height = height
         self.width = width
-        
-    def get_config(self):
-        return {
-            "height": self.height,
-            "width": self.width,
-            **super().get_config(),
-        }
 
     def build(self, input_shape):
         self.built = True

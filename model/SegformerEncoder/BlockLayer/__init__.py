@@ -31,24 +31,12 @@ class BlockLayer(keras.Model):
 
         super().__init__(**kwargs)
         mlp_hidden_dim = int(dim * mlp_ratio)
-        
+
         self.norm1 = keras.layers.LayerNormalization(epsilon=1e-05, name = "TBlock_Norm1")
         self.attn = MultiHeadAttention(dim, num_heads, sr_ratio, attn_drop, proj_drop, name = "TBlock_MHA")
         self.drop_path = DropPath(drop_path, name = "TBlock_DropPath")
         self.norm2 = keras.layers.LayerNormalization(epsilon=1e-05, name = "TBlock_Norm2")
         self.ffn = FeedForwardNetwork(dim, mlp_hidden_dim, drop = proj_drop, name = "TBlock_FFN")
-
-    def get_config(self):
-        return {
-            "dim": self.dim,
-            "num_heads": self.num_heads,
-            "sr_ratio": self.sr_ratio,
-            "attn_drop": self.attn_drop,
-            "proj_drop": self.proj_drop,
-            "drop_path": self.drop_path,
-            "mlp_ratio": self.mlp_ratio,
-            **super().get_config(),
-        }
 
     def compute_output_shape(self, x_shape, **kwargs):
         x = keras.layers.Input(x_shape[1:], batch_size = x_shape[0])
@@ -61,8 +49,6 @@ class BlockLayer(keras.Model):
 
         self.expected_output_shape = x_shape
         self.built = True
-        # print(f"Encoder.build() - {x_shape} -> {self.expected_output_shape}")
-        keras.utils.plot_model(self, show_shapes = True, expand_nested = True, show_layer_names = True)
 
     def call(self, x, **kwargs):
         attn_output_norm = self.norm1(x)
