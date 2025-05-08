@@ -24,8 +24,8 @@ SAVE_FREQ = 1000
 '''
 
 class VisualizeModelPredictions(keras.callbacks.Callback):
-    def __init__(self, val_data, log_path):
-        self.val_data = tfds.as_numpy(val_data)
+    def __init__(self, val, log_path):
+        self.val_data = tfds.as_numpy(val)
         self.log_path = log_path
         super.__init__()
 
@@ -125,6 +125,6 @@ class ModelTrainer():
             validation_batch_size = 100,
             validation_steps = 1,
             verbose = 1,
-            callbacks = [save_callback, tensorboard_callback],
+            callbacks = [save_callback, tensorboard_callback, visualization_callback],
         )
         model.save_weights(self.save_model_path)
