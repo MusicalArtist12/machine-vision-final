@@ -25,16 +25,33 @@ SAVE_FREQ = 1000
 
 class VisualizeModelPredictions(keras.callbacks.Callback):
     def __init__(self, val_data, log_path):
-        self.val_data = val_data
+        self.val_data = tfds.as_numpy(val_data)[0:25]
         self.log_path = log_path
         super.__init__()
 
     def on_epoch_end(self, epoch, logs=None):
-        results = self.model.predict(self.val_data, steps = 10)
+        results = []
+
+        for element in self.val_data:
+            res = model(element[0]).numpy()[0] * 255
+            truth = element[1][0] * 255
+            image = element[0][0]
+
+            green = np.full_like(image,(0,255,0))
+            blue = np.full_like(image, (255, 0, 0))
+
+            img_green = cv.addWeighted(image, 0.5, green, 0.5, 0)
+            img_blue = cv.addWeighted(image, 0.5, blue, 0.5, 0)
+
+            result = np.where(res == 255, img_green, image)
+            result = np.where(truth == 255, img_blue, result)
+
+            results.append(result)
+
         file_writer = tf.summary.create_file_writer(log_path + '/train_data')
 
         with file_writer.as_default():
-            pass
+            tf.summary.image("25 training data examples", results, max_outputs=25, step=epoch)
 
 
 class ModelTrainer():

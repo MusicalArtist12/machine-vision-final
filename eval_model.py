@@ -42,20 +42,15 @@ def main():
         jit_compile = False
     )
 
-    # model.load_weights(MODEL_PATH)
+    model.load_weights(MODEL_PATH)
 
     train, val = bdd100k.load_data(1)
 
-    # test = tfds.as_numpy(val)
+    test = tfds.as_numpy(val)
 
-    results = model.predict(val, steps = 10)
+    for element in test:
+        res = model(element[0])
 
-    for element in results:
-        print(element.shape)
-        input()
-        # res = model(element[0])
-
-        '''
         while True:
             cv.imshow("window", element[0][0])
             cv.imshow("window2", element[1][0] * 255.0)
@@ -63,7 +58,6 @@ def main():
             cv.imshow("result", res.numpy()[0] * 255.0 )
             if cv.waitKey(1) == ord('q'):
                 break
-        '''
 
 
 
