@@ -40,7 +40,7 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
             else:
                 idx += 1
 
-            res = model(element[0]).numpy()[0] * 255
+            res = self.model(element[0]).numpy()[0] * 255
             truth = element[1][0] * 255
             image = element[0][0]
 
