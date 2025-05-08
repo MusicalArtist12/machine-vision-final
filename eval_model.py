@@ -48,7 +48,7 @@ def main():
 
     # test = tfds.as_numpy(val)
 
-    results = self.model.predict(self.val_data, steps = 10)
+    results = model.predict(val, steps = 10)
 
     for element in results:
         print(element.shape)
