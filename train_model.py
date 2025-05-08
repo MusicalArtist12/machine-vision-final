@@ -117,7 +117,9 @@ class ModelTrainer():
 
         tensorboard_callback = keras.callbacks.TensorBoard(log_dir = self.log_path, update_freq = "batch")
 
-        visualization_callback = VisualizeModelPredictions(tfds.as_numpy(val), self.log_path)
+        test_data = tfds.as_numpy(val)
+
+        visualization_callback = VisualizeModelPredictions(test_data, self.log_path)
 
         hist = model.fit(
             x = train,
