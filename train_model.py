@@ -31,10 +31,12 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
 
     def on_epoch_end(self, epoch, logs=None):
         results = []
-
-        for idx, element in enumerate(self.val_data):
+        idx = 0
+        for element in self.val_data:
             if idx > 25:
                 break
+            else:
+                idx += 1
 
             res = model(element[0]).numpy()[0] * 255
             truth = element[1][0] * 255
