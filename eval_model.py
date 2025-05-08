@@ -59,7 +59,7 @@ def main():
             if cv.waitKey(1) == ord('q'):
                 break
 
-
+q
 
 if __name__ == '__main__':
     main()
