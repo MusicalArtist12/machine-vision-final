@@ -25,7 +25,7 @@ SAVE_FREQ = 1000
 
 class VisualizeModelPredictions(keras.callbacks.Callback):
     def __init__(self, val, log_path):
-        self.val_data = tfds.as_numpy(val)
+        self.val_data = val
         self.log_path = log_path
         super.__init__()
 
@@ -115,7 +115,7 @@ class ModelTrainer():
 
         tensorboard_callback = keras.callbacks.TensorBoard(log_dir = self.log_path, update_freq = "batch")
 
-        visualization_callback = VisualizeModelPredictions(val, self.log_path)
+        visualization_callback = VisualizeModelPredictions(tfds.as_numpy(val), self.log_path)
 
         hist = model.fit(
             x = train,
