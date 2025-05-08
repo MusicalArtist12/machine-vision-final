@@ -25,9 +25,9 @@ SAVE_FREQ = 1000
 
 class VisualizeModelPredictions(keras.callbacks.Callback):
     def __init__(self, log_path):
-        train, val = bdd100k.load_data(self.batch_size)
+        train, val_data = bdd100k.load_data(1)
 
-        self.val_data = tfds.as_numpy(val)
+        self.val_data = tfds.as_numpy(val_data)
         self.log_path = log_path
         super.__init__()
 
