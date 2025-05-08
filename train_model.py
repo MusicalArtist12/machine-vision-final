@@ -35,7 +35,6 @@ def main():
 
     model.compile(
         optimizer = keras.optimizers.AdamW(
-            gradient_accumulation_steps=1,
             learning_rate=0.00006
         ),
         loss = keras.losses.BinaryCrossentropy(),
