@@ -61,7 +61,7 @@ def main():
 
     save_callback = tf.keras.callbacks.ModelCheckpoint(
         MODEL_PATH,
-        save_freq=50,
+        save_freq=1000,
         initial_value_threshold=None,
         save_weights_only=True
     )
