@@ -13,76 +13,102 @@ import sys
 
 import bdd100k_loader as bdd100k
 
-MODEL_PATH = sys.argv[2]
-LOG_PATH = sys.argv[1]
+'''
+MODEL_PATH = ""
+LOG_PATH = ""
+
 BATCH_SIZE = 1
 NUM_EPOCHS = 50
+LEARNING_RATE = 0.00006
+SAVE_FREQ = 1000
+'''
 
-def main():
-    keras.backend.clear_session()
+class VisualizeModelPredictions(keras.callbacks.Callback):
+    def __init__(self, val_data, log_path):
+        self.val_data = val_data
+        self.log_path = log_path
+        super.__init__()
 
-    tf.keras.config.disable_traceback_filtering()
+    def on_epoch_end(self, epoch, logs=None):
+        results = self.model.predict(self.val_data, steps = 10)
+        file_writer = tf.summary.create_file_writer(log_path + '/train_data')
 
-    print("Loading")
-
-    model = Segformer_B0(input_shape = (None, 720, 1280, 3), num_classes = 1)
-
-    print("Building")
-
-    model.build((None, 720, 1280, 3))
-
-    print("Compiling")
-
-    model.compile(
-        optimizer = keras.optimizers.AdamW(
-            learning_rate=0.00006
-        ),
-        loss = keras.losses.BinaryCrossentropy(),
-        metrics = [
-            keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU"),
-            keras.metrics.BinaryIoU(target_class_ids=[0], name="FalseIoU"),
-            keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU")
-        ],
-        run_eagerly = False,
-        steps_per_execution = 1,
-        jit_compile = False
-    )
-
-    if len(sys.argv) > 3 and sys.argv[3] == "preload":
-        model.load_weights(MODEL_PATH)
-
-    print("Loading Data")
+        with file_writer.as_default():
+            pass
 
 
-    train, val = bdd100k.load_data(1)
+class ModelTrainer():
+    def __init__(self, log_path, batch_size, num_epochs, learning_rate, save_freq, save_model_path, load_model_path = ""):
+        self.load_model_path = load_model_path
+        self.save_model_path = save_model_path
+        self.log_path = log_path
+        self.batch_size = batch_size
+        self.num_epochs = num_epochs
+        self.learning_rate = learning_rate
+        self.save_freq = save_freq
 
-    print("Training")
+    def main(self):
+        keras.backend.clear_session()
 
-    save_callback = tf.keras.callbacks.ModelCheckpoint(
-        MODEL_PATH,
-        save_freq=1000,
-        initial_value_threshold=None,
-        save_weights_only=True
-    )
+        tf.keras.config.disable_traceback_filtering()
 
-    tensorboard_callback = keras.callbacks.TensorBoard(log_dir=LOG_PATH,update_freq = "batch")
+        print("Loading")
 
+        model = Segformer_B0(input_shape = (None, 720, 1280, 3), num_classes = 1)
 
-    epoch_counter = 0
+        print("Building")
 
-    hist = model.fit(
-        x = train,
-        epochs = NUM_EPOCHS,
-        validation_data = val,
-        validation_freq = 1,
-        validation_batch_size = 100,
-        validation_steps = 1,
-        verbose = 1,
-        callbacks = [save_callback, tensorboard_callback],
-        # callbacks = [tensorboard_callback]
-    )
-    model.save_weights(MODEL_PATH)
+        model.build((None, 720, 1280, 3))
+
+        print("Compiling")
+
+        model.compile(
+            optimizer = keras.optimizers.AdamW(
+                learning_rate = self.learning_rate
+            ),
+            loss = keras.losses.BinaryCrossentropy(),
+            metrics = [
+                keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU"),
+                keras.metrics.BinaryIoU(target_class_ids=[0], name="FalseIoU"),
+                keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU")
+            ],
+            run_eagerly = False,
+            steps_per_execution = 1,
+            jit_compile = False
+        )
+
+        if self.load_model_path != "":
+            model.load_weights(self.load_model_path)
+
+        print("Loading Data")
+
+        train, val = bdd100k.load_data(self.batch_size)
+
+        print("Training")
+
+        save_callback = tf.keras.callbacks.ModelCheckpoint(
+            self.save_model_path,
+            save_freq=self.save_freq,
+            initial_value_threshold=None,
+            save_weights_only=True
+        )
+
+        tensorboard_callback = keras.callbacks.TensorBoard(log_dir = self.log_path, update_freq = "batch")
+
+        visualization_callback = VisualizeModelPredictions(val, self.log_path)
+
+        hist = model.fit(
+            x = train,
+            epochs = self.num_epochs,
+            validation_data = val,
+            validation_freq = 1,
+            validation_batch_size = 100,
+            validation_steps = 1,
+            verbose = 1,
+            callbacks = [save_callback, tensorboard_callback],
+        )
+        model.save_weights(self.save_model_path)
 
 if __name__ == '__main__':
-    os.system("rm -rf /content/logs")
+
     main()
