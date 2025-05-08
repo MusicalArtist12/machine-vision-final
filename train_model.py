@@ -30,8 +30,7 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
         self.val_data = tfds.as_numpy(val_data)
         self.log_path = log_path
 
-
-    def on_epoch_end(self, epoch, logs=None):
+    def on_epoch_begin(self, epoch, logs=None):
         results = []
         idx = 0
         for element in self.val_data:
@@ -62,7 +61,7 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
 
 
 class ModelTrainer():
-    def __init__(self, log_path, batch_size, gradient_accumulation_steps, num_epochs, learning_rate, save_freq, save_model_path, load_model_path = ""):
+    def __init__(self, log_path, batch_size, gradient_accumulation_steps, num_epochs, learning_rate, save_freq, save_model_path, backup_path, backup_freq, load_model_path = ""):
         self.load_model_path = load_model_path
         self.save_model_path = save_model_path
         self.gradient_accumulation_steps = gradient_accumulation_steps
@@ -71,6 +70,8 @@ class ModelTrainer():
         self.num_epochs = num_epochs
         self.learning_rate = learning_rate
         self.save_freq = save_freq
+        self.backup_path = backup_path
+        self.backup_freq = backup_freq
 
     def main(self):
         keras.backend.clear_session()
@@ -123,6 +124,7 @@ class ModelTrainer():
 
         visualization_callback = VisualizeModelPredictions( self.log_path)
 
+        backup = keras.callbacks.BackupAndRestore(backup_dir = self.backup_path, save_freq = self.backup_freq)
         hist = model.fit(
             x = train,
             epochs = self.num_epochs,
@@ -131,6 +133,6 @@ class ModelTrainer():
             validation_batch_size = 100,
             validation_steps = 1,
             verbose = 1,
-            callbacks = [save_callback, tensorboard_callback, visualization_callback],
+            callbacks = [save_callback, tensorboard_callback, visualization_callback, backup],
         )
         model.save_weights(self.save_model_path)
