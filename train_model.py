@@ -25,6 +25,7 @@ SAVE_FREQ = 1000
 
 class VisualizeModelPredictions(keras.callbacks.Callback):
     def __init__(self, val, log_path):
+        print(type(val))
         self.val_data = val
         self.log_path = log_path
         super.__init__()
