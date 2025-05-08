@@ -62,9 +62,10 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
 
 
 class ModelTrainer():
-    def __init__(self, log_path, batch_size, num_epochs, learning_rate, save_freq, save_model_path, load_model_path = ""):
+    def __init__(self, log_path, batch_size, gradient_accumulation_steps, num_epochs, learning_rate, save_freq, save_model_path, load_model_path = ""):
         self.load_model_path = load_model_path
         self.save_model_path = save_model_path
+        self.gradient_accumulation_steps = gradient_accumulation_steps
         self.log_path = log_path
         self.batch_size = batch_size
         self.num_epochs = num_epochs
@@ -88,7 +89,8 @@ class ModelTrainer():
 
         model.compile(
             optimizer = keras.optimizers.AdamW(
-                learning_rate = self.learning_rate
+                learning_rate = self.learning_rate,
+                gradient_accumulation_steps = self.gradient_accumulation_steps
             ),
             loss = keras.losses.Dice(),
             metrics = [
@@ -97,7 +99,7 @@ class ModelTrainer():
                 keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU")
             ],
             run_eagerly = False,
-            steps_per_execution = 1,
+            steps_per_execution = self.gradient_accumulation_steps,
             jit_compile = False
         )
 
