@@ -38,14 +38,14 @@ def main():
             gradient_accumulation_steps=16,
             learning_rate=0.00006
         ),
-        loss = keras.losses.BinaryCrossentropy(from_logits=True, axis = 0),
+        loss = keras.losses.BinaryCrossentropy(),
         metrics = [
             keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU"),
             keras.metrics.BinaryIoU(target_class_ids=[0], name="FalseIoU"),
             keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU")
         ],
         run_eagerly = False,
-        steps_per_execution = 1,
+        steps_per_execution = 16,
         jit_compile = False
     )
 
@@ -79,7 +79,6 @@ def main():
         validation_batch_size = 100,
         validation_steps = 1,
         verbose = 1,
-        # steps_per_epoch = 10,
         callbacks = [save_callback, tensorboard_callback],
         # callbacks = [tensorboard_callback]
     )
