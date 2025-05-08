@@ -54,7 +54,7 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
 
             results.append(result)
 
-        file_writer = tf.summary.create_file_writer(log_path + '/train_data')
+        file_writer = tf.summary.create_file_writer(self.log_path + '/train_data')
 
         with file_writer.as_default():
             tf.summary.image("25 training data examples", results, max_outputs=25, step=epoch)
