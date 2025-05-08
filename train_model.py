@@ -125,7 +125,3 @@ class ModelTrainer():
             callbacks = [save_callback, tensorboard_callback],
         )
         model.save_weights(self.save_model_path)
-
-if __name__ == '__main__':
-
-    main()
