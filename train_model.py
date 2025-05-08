@@ -90,7 +90,7 @@ class ModelTrainer():
             optimizer = keras.optimizers.AdamW(
                 learning_rate = self.learning_rate
             ),
-            loss = keras.losses.BinaryCrossentropy(),
+            loss = keras.losses.Dice(),
             metrics = [
                 keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU"),
                 keras.metrics.BinaryIoU(target_class_ids=[0], name="FalseIoU"),
