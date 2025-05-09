@@ -48,9 +48,17 @@
 
     Semantic segmentation was chosen since it provides an accurate width, without being overly complex to use. An object detection model such as YOLO would be useful in finding which cars are in front of the camera, but an accurate width requires an accurate edge to read against. instance detection may be useful for this, but it may have more overhead compared to semantic segmentation, where individual cars can be isolated by the width of the lane.
 
+    \subsection*{Neural Network: Design and Training}
+
     \subsubsection*{The SegFormer}
 
-    The SegFormer is a neural network designed to use vision transformers in semantic segmentation, using multiple transformers using an efficient self attention algorithm and a simple MLP decoder \cite{DBLP:journals/corr/abs-2105-15203}. It builds upon the original patch transformer encoder as described in "An Image is Worth 16x16 Words" \cite{DBLP:journals/corr/abs-2010-11929}. This hierarchical transformer encoder extracts both coarse and fine features. The original SegFormer paper provides five differennt levels
+    The SegFormer is a neural network designed to use vision transformers in semantic segmentation, using multiple transformers using an efficient self attention algorithm and a simple MLP decoder \cite{DBLP:journals/corr/abs-2105-15203}. It builds upon the original patch transformer encoder as described in "An Image is Worth 16x16 Words" \cite{DBLP:journals/corr/abs-2010-11929}. This hierarchical transformer encoder extracts both coarse and fine features. The original SegFormer paper provides five different levels of preconfigured hyperparameters, each one taking more computational power but resulting in a higher IoU.
+
+    \subsubsection*{Intersection over Union}
+
+    \subsubsection*{Dice Loss}
+
+    \subsubsection*{hyperparameters}
 
     \section{Methods}
 
