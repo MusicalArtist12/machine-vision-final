@@ -51,7 +51,7 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
 
             results.append(mask)
 
-        file_writer = tf.summary.create_file_writer(self.log_path + '/train_data')
+        file_writer = tf.summary.create_file_writer(self.log_path + '/val')
 
         with file_writer.as_default():
             tf.summary.image("25 training data examples", results, max_outputs=25, step=epoch)
@@ -128,6 +128,6 @@ class ModelTrainer():
             validation_steps = 1,
             verbose = 1,
             callbacks = [tensorboard_callback, visualization_callback, backup],
-            steps_per_epoch = 1000
+            steps_per_epoch = 1000 // self.batch_size
         )
         model.save_weights(self.save_model_path)
