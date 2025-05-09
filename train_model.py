@@ -73,6 +73,7 @@ def main():
     hist = model.fit(
         x = train,
         epochs = NUM_EPOCHS,
+        steps_per_epoch = 1000,
         validation_data = val,
         validation_freq = 1,
         validation_batch_size = 100,
