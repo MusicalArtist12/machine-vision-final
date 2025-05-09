@@ -19,7 +19,7 @@ def normalize_img(image, mask):
     # mask = [720, 1280, 1], each pixel being [P], P in {x in float32 | 0.0 <= x <= 1.0 }
     image = tf.cast(image, tf.float32) / 255.0
 
-    resize = keras.layers.Resizing(1280 // 4, 720 // 4)
+    resize = keras.layers.Resizing(720 // 4, 1280 // 4)
 
     image_resized = resize(image)
     mask_resized = resize(mask)
