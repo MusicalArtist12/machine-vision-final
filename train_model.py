@@ -1,7 +1,7 @@
 import tensorflow as tf
 from typing import NamedTuple
 import tensorflow_datasets as tfds
-from model import Segformer_B0
+from model import Segformer_B5
 import cv2 as cv
 import numpy as np
 import os
