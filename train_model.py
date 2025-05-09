@@ -39,17 +39,17 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
             else:
                 idx += 1
 
-            res = self.model(element[0]).numpy()[0] * 255
-            truth = element[1][0] * 255
+            res = self.model(element[0])
+            mask = res.numpy()[0] * 255
             image = element[0][0]
 
             green = np.full_like(image,(0,255,0))
 
             img_green = cv.addWeighted(image, 0.5, green, 0.5, 0)
 
-            result = np.where(res == 255, img_green, image)
+            result = np.where(mask == 255, img_green, image)
 
-            results.append(result)
+            results.append(mask)
 
         file_writer = tf.summary.create_file_writer(self.log_path + '/train_data')
 
