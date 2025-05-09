@@ -113,12 +113,6 @@ class ModelTrainer():
 
         print("Training")
 
-        save_callback = tf.keras.callbacks.ModelCheckpoint(
-            self.save_model_path,
-            save_freq=self.save_freq,
-            initial_value_threshold=None,
-            save_weights_only=True
-        )
 
         tensorboard_callback = keras.callbacks.TensorBoard(log_dir = self.log_path, update_freq = "batch")
 
@@ -133,7 +127,7 @@ class ModelTrainer():
             validation_batch_size = 100,
             validation_steps = 1,
             verbose = 1,
-            callbacks = [save_callback, tensorboard_callback, visualization_callback, backup],
+            callbacks = [tensorboard_callback, visualization_callback, backup],
             steps_per_epoch = 1000
         )
         model.save_weights(self.save_model_path)
