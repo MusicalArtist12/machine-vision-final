@@ -70,17 +70,6 @@ def Segformer_B0(input_shape, num_classes):
 
     resize = ResizeLayer(input_shape[1], input_shape[2])
 
-    # softmax = keras.layers.Softmax(axis = 2)
-
-    '''
-    flatten = keras.layers.Flatten(name = "Decode_Flatten")
-
-    decode_input = keras.layers.Dense(units = 100, name = "Decode_Input")
-    decode_hidden = keras.layers.Dense(units = 100, name = "Decode_Hidden")
-    decode_output = keras.layers.Dense(units = 40, name = "Decode_Output")
-    reshape_final = keras.layers.Reshape((10, 4), name = "Decode_Reshape")
-    '''
-
     input_layer = keras.layers.Input(shape=input_shape[1:], batch_size = input_shape[0])
 
     x = input_layer

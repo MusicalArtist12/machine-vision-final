@@ -88,7 +88,7 @@ class ModelTrainer():
         model.compile(
             optimizer = keras.optimizers.AdamW(
                 learning_rate = self.learning_rate,
-                gradient_accumulation_steps = self.gradient_accumulation_steps
+                gradient_accumulation_steps = self.gradient_accumulation_steps if self.gradient_accumulation_steps > 1 else None
             ),
             loss = keras.losses.Dice(axis=(2)),
             metrics = [
