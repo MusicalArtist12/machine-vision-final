@@ -90,7 +90,7 @@ class ModelTrainer():
                 learning_rate = self.learning_rate,
                 gradient_accumulation_steps = self.gradient_accumulation_steps if self.gradient_accumulation_steps > 1 else None
             ),
-            loss = keras.losses.Tversky(alpha=0.9, 0.2),
+            loss = keras.losses.Tversky(alpha=0.9, beta=0.2),
             metrics = [
                 keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU"),
                 keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU"),
