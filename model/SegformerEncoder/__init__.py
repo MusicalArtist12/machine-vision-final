@@ -7,10 +7,10 @@ from .TransformerBlock import TransformerBlock
 from typing import NamedTuple
 
 class TransformerBlockParams(NamedTuple):
-    depth: int
-    patch_size: int
-    stride: int
-    dim: int
-    num_heads: int
-    sr_ratio: int
-    mlp_ratio: int
+    depth: int      # L
+    patch_size: int # K = P + S
+    stride: int     # S
+    dim: int        # C
+    num_heads: int  # N
+    sr_ratio: int   # R - reductio ratio
+    mlp_ratio: int  # E

@@ -77,7 +77,7 @@ class ModelTrainer():
 
         print("Loading")
 
-        model = Segformer_B0(input_shape = (None, bdd100k.IMAGE_H, bdd100k.IMAGE_W, 3), num_classes = bdd100k.NUM_CLASSES)
+        model = Segformer_B5(input_shape = (None, bdd100k.IMAGE_H, bdd100k.IMAGE_W, 3), num_classes = bdd100k.NUM_CLASSES)
 
         print("Building")
 
