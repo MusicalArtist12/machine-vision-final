@@ -50,6 +50,8 @@
 
     \subsubsection*{The SegFormer}
 
+    The SegFormer is a neural network designed to use vision transformers in semantic segmentation, using multiple transformers using an efficient self attention algorithm and a simple MLP decoder \cite{DBLP:journals/corr/abs-2105-15203}. It builds upon the original patch transformer encoder as described in "An Image is Worth 16x16 Words" \cite{DBLP:journals/corr/abs-2010-11929}. This hierarchical transformer encoder extracts both coarse and fine features. The original SegFormer paper provides five differennt levels
+
     \section{Methods}
 
     \subsection*{Neural Network}
@@ -62,7 +64,11 @@
 
     \section{Results}
 
-    \subsection*{Dice Loss, Binary IoU, no axis set}
+    \subsection{Binary CrossEntropy, Binary IoU, B0}
+
+    \subsection*{Dice Loss, Binary IoU, no axis set, B0}
+
+    \subsection*{Dice Loss, Binary IoU, Downscaled images, B5}
 
     \section{Conclusion}
 

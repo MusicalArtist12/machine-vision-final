@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.4.2)  9 MAY 2025 11:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.4.2)  9 MAY 2025 12:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -712,19 +712,23 @@ Package: inputenc 2024/02/08 v1.3d Input encoding file
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.bbl)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.bbl
 
-[2] (./main.aux)
+[2]
+
+[3])
+
+[4] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 21740 strings out of 475171
- 465744 string characters out of 5767096
- 873665 words of memory out of 5000000
- 44372 multiletter control sequences out of 15000+600000
+ 21744 strings out of 475171
+ 465830 string characters out of 5767096
+ 873671 words of memory out of 5000000
+ 44376 multiletter control sequences out of 15000+600000
  562365 words of font info for 48 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  98i,6n,105p,939b,266s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -732,10 +736,10 @@ Here is how much of TeX's memory you used:
 texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/font
 s/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (2 pages, 67818 bytes).
+Output written on main.pdf (4 pages, 72436 bytes).
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
- 33 compressed objects within 1 object stream
+ 76 PDF objects out of 1000 (max. 8388607)
+ 37 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  157 words of extra memory for PDF output out of 10000 (max. 10000000)
 

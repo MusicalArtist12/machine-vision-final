@@ -1,7 +1,7 @@
 import tensorflow as tf
 from typing import NamedTuple
 import tensorflow_datasets as tfds
-from model import Segformer_B5
+from model import *
 import cv2 as cv
 import numpy as np
 import os
@@ -77,7 +77,7 @@ class ModelTrainer():
 
         print("Loading")
 
-        model = Segformer_B5(input_shape = (None, bdd100k.IMAGE_H, bdd100k.IMAGE_W, 3), num_classes = bdd100k.NUM_CLASSES)
+        model = Segformer_B2(input_shape = (None, bdd100k.IMAGE_H, bdd100k.IMAGE_W, 3), num_classes = bdd100k.NUM_CLASSES)
 
         print("Building")
 
