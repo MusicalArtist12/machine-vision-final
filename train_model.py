@@ -77,11 +77,11 @@ class ModelTrainer():
 
         print("Loading")
 
-        model = Segformer_B0(input_shape = (None, 720 // 4, 1280 // 4, 3), num_classes = 1)
+        model = Segformer_B0(input_shape = (bdd100k.IMAGE_H, bdd100k.IMAGE_W, 3), num_classes = NUM_CLASSES)
 
         print("Building")
 
-        model.build((None, 720 // 4, 1280 // 4, 3))
+        model.build((None, bdd100k.IMAGE_H, bdd100k.IMAGE_W, 3))
 
         print("Compiling")
 
@@ -128,6 +128,6 @@ class ModelTrainer():
             validation_steps = 1,
             verbose = 1,
             callbacks = [tensorboard_callback, visualization_callback, backup],
-            steps_per_epoch = 1000 // self.batch_size
+            steps_per_epoch = bdd100k.NUM_TRAINING // self.batch_size
         )
         model.save_weights(self.save_model_path)

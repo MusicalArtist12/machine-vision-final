@@ -10,7 +10,11 @@ import keras
 import gc
 import cv2 as cv
 
-
+IMAGE_H = 720 // 4
+IMAGE_W = 1280 // 4
+NUM_TRANING = 6996
+NUM_VAL = 1000
+NUM_CLASSES = 1
 
 def normalize_img(image, mask):
     """Normalizes images: `uint8` -> `float32`."""
