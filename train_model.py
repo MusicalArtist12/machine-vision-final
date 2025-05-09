@@ -90,7 +90,7 @@ class ModelTrainer():
                 learning_rate = self.learning_rate,
                 gradient_accumulation_steps = self.gradient_accumulation_steps
             ),
-            loss = keras.losses.Dice(),
+            loss = keras.losses.Dice(axis=(2)),
             metrics = [
                 keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU"),
                 keras.metrics.BinaryIoU(target_class_ids=[0], name="FalseIoU"),

@@ -1,0 +1,11 @@
+\begin{thebibliography}{1}
+
+\bibitem{DBLP:journals/corr/abs-2010-11929}
+Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn,
+  Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg
+  Heigold, Sylvain Gelly, Jakob Uszkoreit, and Neil Houlsby.
+\newblock An image is worth 16x16 words: Transformers for image recognition at
+  scale.
+\newblock {\em CoRR}, abs/2010.11929, 2020.
+
+\end{thebibliography}
