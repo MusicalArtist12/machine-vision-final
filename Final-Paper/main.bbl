@@ -1,39 +1,47 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{}
 
-\bibitem{HLDI:SubaruEyeSight}
-Impact of {Subaru} collision avoidance features on insurance losses by rated
-  driver age.
-\newblock {\em Highway Data Loss Institute}, Vol. 36, No 25, 2019.
+\bibitem[HLD, 2019]{HLDI:SubaruEyeSight}
+ (2019).
+\newblock Impact of {Subaru} collision avoidance features on insurance losses
+  by rated driver age.
+\newblock {\em Highway Data Loss Institute}, Vol. 36, No 25.
 
-\bibitem{HLDI:HondaFCW}
-Impact of {Honda Accord} collision avoidance features on claim frequency by
-  rated driver age.
-\newblock {\em Highway Data Loss Institute}, Vol. 38, No. 13, 2021.
+\bibitem[HLD, 2021a]{HLDI:HondaFCW}
+ (2021a).
+\newblock Impact of {Honda Accord} collision avoidance features on claim
+  frequency by rated driver age.
+\newblock {\em Highway Data Loss Institute}, Vol. 38, No. 13.
 
-\bibitem{HLDI:KiaDriveWise}
-Impact of {Kia Drive Wise} collision avoidance features on insurance losses by
-  rated driver age.
-\newblock {\em Highway Data Loss Institute}, Vol. 38, No. 14, 2021.
+\bibitem[HLD, 2021b]{HLDI:KiaDriveWise}
+ (2021b).
+\newblock Impact of {Kia Drive Wise} collision avoidance features on insurance
+  losses by rated driver age.
+\newblock {\em Highway Data Loss Institute}, Vol. 38, No. 14.
 
-\bibitem{DBLP:journals/corr/abs-2010-11929}
-Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn,
-  Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg
-  Heigold, Sylvain Gelly, Jakob Uszkoreit, and Neil Houlsby.
+\bibitem[Dosovitskiy et~al., 2020]{DBLP:journals/corr/abs-2010-11929}
+Dosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn, D., Zhai, X.,
+  Unterthiner, T., Dehghani, M., Minderer, M., Heigold, G., Gelly, S.,
+  Uszkoreit, J., and Houlsby, N. (2020).
 \newblock An image is worth 16x16 words: Transformers for image recognition at
   scale.
-\newblock {\em CoRR}, abs/2010.11929, 2020.
+\newblock {\em CoRR}, abs/2010.11929.
 
-\bibitem{NHTSA:Overview-2022}
-National~Center for Statistics and Analysis.
+\bibitem[for Statistics and Analysis, 2024]{NHTSA:Overview-2022}
+for Statistics, N.~C. and Analysis (2024).
 \newblock Overview of motor vehicle traffic crashes in 2022.
-\newblock {\em Traffic Safety Facts Research Note. Report No. DOT HS 813 560},
-  2024.
+\newblock {\em Traffic Safety Facts Research Note. Report No. DOT HS 813 560}.
 
-\bibitem{DBLP:journals/corr/abs-2105-15203}
-Enze Xie, Wenhai Wang, Zhiding Yu, Anima Anandkumar, Jos{\'{e}}~M.
-  {\'{A}}lvarez, and Ping Luo.
+\bibitem[Vaswani et~al., 2017]{DBLP:journals/corr/VaswaniSPUJGKP17}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.~N.,
+  Kaiser, L., and Polosukhin, I. (2017).
+\newblock Attention is all you need.
+\newblock {\em CoRR}, abs/1706.03762.
+
+\bibitem[Xie et~al., 2021]{DBLP:journals/corr/abs-2105-15203}
+Xie, E., Wang, W., Yu, Z., Anandkumar, A., {\'{A}}lvarez, J.~M., and Luo, P.
+  (2021).
 \newblock Segformer: Simple and efficient design for semantic segmentation with
   transformers.
-\newblock {\em CoRR}, abs/2105.15203, 2021.
+\newblock {\em CoRR}, abs/2105.15203.
 
 \end{thebibliography}

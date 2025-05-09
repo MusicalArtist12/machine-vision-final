@@ -90,18 +90,13 @@ class ModelTrainer():
                 learning_rate = self.learning_rate,
                 gradient_accumulation_steps = self.gradient_accumulation_steps if self.gradient_accumulation_steps > 1 else None
             ),
-            loss = keras.losses.Dice(axis=(2)),
+            loss = keras.losses.Tversky(alpha=0.9, 0.2),
             metrics = [
                 keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU"),
-                keras.metrics.BinaryIoU(target_class_ids=[0], name="FalseIoU"),
                 keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU"),
-                keras.losses.Dice(axis=(0)),
-                keras.losses.Dice(axis=(1)),
-                keras.losses.Dice(axis=(2))
             ],
             run_eagerly = False,
             steps_per_execution = self.gradient_accumulation_steps,
-            jit_compile = False
         )
 
         if self.load_model_path != "":
@@ -124,11 +119,8 @@ class ModelTrainer():
             epochs = self.num_epochs,
             validation_data = val,
             validation_freq = 1,
-            validation_batch_size = 100,
             validation_steps = 1,
             verbose = 1,
-            callbacks = [tensorboard_callback, visualization_callback, backup],
-            # steps_per_epoch = bdd100k.NUM_TRAINING // self.batch_size
-            steps_per_epoch = 1000 // self.batch_size
+            callbacks = [tensorboard_callback, visualization_callback, backup]
         )
         model.save_weights(self.save_model_path)

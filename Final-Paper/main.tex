@@ -6,9 +6,14 @@
 \usepackage{fancyhdr}
 \usepackage[export]{adjustbox}
 \usepackage[most]{tcolorbox}
-
+\usepackage[bottom]{footmisc}
 \usepackage{setspace}
+\usepackage[document]{ragged2e}
 
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
 \renewcommand{\baselinestretch}{1.5}
 
 \newtcolorbox{myframe}[1][]{
@@ -52,13 +57,38 @@
 
     \subsubsection*{The SegFormer}
 
-    The SegFormer is a neural network designed to use vision transformers in semantic segmentation, using multiple transformers using an efficient self attention algorithm and a simple MLP decoder \cite{DBLP:journals/corr/abs-2105-15203}. It builds upon the original patch transformer encoder as described in "An Image is Worth 16x16 Words" \cite{DBLP:journals/corr/abs-2010-11929}. This hierarchical transformer encoder extracts both coarse and fine features. The original SegFormer paper provides five different levels of preconfigured hyperparameters, each one taking more computational power but resulting in a higher IoU.
+    The SegFormer is a neural network designed to use vision transformers in semantic segmentation, using multiple transformers using an efficient self attention algorithm and a simple MLP decoder \cite{DBLP:journals/corr/abs-2105-15203}. It builds upon the original patch transformer encoder described in \cite{DBLP:journals/corr/abs-2010-11929}. This hierarchical transformer encoder extracts both coarse and fine features. The original SegFormer paper provides five different levels of preconfigured hyperparameters, each one taking more computational power but resulting in a higher IoU.
 
     \subsubsection*{Intersection over Union}
 
-    \subsubsection*{Dice Loss}
+    To test the model's accuracy, the metric \texttt{Intersection over Union}, also known as IoU was chosen. Since there are only two classes that the model is being trained for (Car or Not Car), the BinaryIoU keras metric was chosen, comparing against both the 'Car' class ($\text{IoU}_1$) and the mean of both (mIoU). It is worth noting that the original design and experiment used mean IoU to validate training.
 
-    \subsubsection*{hyperparameters}
+    \[
+        \text{IoU}_i = \frac{\text{True Positives}_i}{\text{True Positives}_i + \text {False Positives}_i + \text{False Negatives}_i} = \frac{T_i \cap P_i}{T _i\cup P_i}
+    \]
+
+
+    \[
+        \text{mIoU} = \frac{1}{c}\sum_{i=0}^{c}(\text{IoU}_i)
+    \]
+
+    \subsubsection*{Hyperparameters}
+
+    \begin{center}
+        \begin{tabular}{| l | r |}
+            \hline
+            \textbf{Hyperparameter} & \textbf{Explanation} \\
+            \hline
+            MiT series & MiT-B0 through MiT-B5, see \cite{DBLP:journals/corr/abs-2105-15203}. \\
+            \hline
+            Batch Size & Largely dependent on system memory. \\
+            \hline
+            Gradient Accumulation Steps & permits the use of a smaller batch size. \\
+            \hline
+            Image Resolution & A smaller resolution allows for a larger direct batch \\ & size and faster processing. \\
+            \hline
+        \end{tabular}
+    \end{center}
 
     \section{Methods}
 
@@ -66,9 +96,15 @@
 
     \subsubsection*{Implementation Details}
 
+    The neural network was implemented from scratch using Tensorflow and Keras in Python, based off of the SegFormer paper \cite{DBLP:journals/corr/abs-2105-15203}, the Vision Transformer paper \cite{ DBLP:journals/corr/abs-2010-11929}, and the original Attention paper \cite{DBLP:journals/corr/VaswaniSPUJGKP17}\footnote{\textit{Note to grader, this took the majority of the project time. I did not know what I was getting myself into.}}. This was done in order to use Tensorflow and Keras, as there are no working implementations of a SegFormer in Keras 3\footnote{I did find one written in Keras 2, which may have been upgraded to Keras 3, but I could not get it working. You can find it at github.com/IMvision12/SegFormer-tf/}. The original paper implemented their neural network in \textit{mmsegmentation} and PyTorch, and was one of the sources I used to implement my own, especially when it came to implementing the efficient self attention.
+
+    This project overwhelmingly used classes that inherited from \texttt{keras.Model} for every single layer since Keras does not permit multiple layers of inheriting \texttt{keras.layers.Layer} (as in, the \texttt{TransformerBlock} must be a \texttt{keras.Model} if it uses any layers implemented by the end user, or it will not "see" or train those weights).
+
     \subsubsection*{Training}
 
     \subsection*{Dataset}
+
+    The dataset was trained on a subset Berkeley DeepDive 100K dataset, modified to only include one class. There is no existing implementation of this dataset for Tensorflow, so to allow the efficient use of the dataset, a Tensorflow dataset was constructed using \texttt{tfds}. This dataset was chosen for its size and spread among a diverse set of environments.
 
     \section{Results}
 
@@ -80,7 +116,8 @@
 
     \section{Conclusion}
 
-    \bibliographystyle{plain} % We choose the "plain" reference style
+    \newpage
+    \bibliographystyle{apalike}
     \bibliography{refs} % Entries are in the refs.bib file
 
 
