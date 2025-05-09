@@ -5,7 +5,7 @@ default: main.pdf
 edit:
 	vim main.tex
 
-main.pdf: main.tex
+main.pdf: main.tex refs.bib
 	pdflatex main
 	bibtex main
 	pdflatex main

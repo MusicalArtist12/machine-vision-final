@@ -48,7 +48,9 @@ def Segformer_B0(input_shape, num_classes):
         ) for i, param in enumerate(block_params)
     ]
 
-    shape = (input_shape[0], input_shape[1], input_shape[2], input_shape[3])
+    resize_in = ResizeLayer(input_shape[1] // 4, input_shape[2] //4)
+
+    shape = (input_shape[0], input_shape[1] // 4, input_shape[2] // 4, input_shape[3])
 
     shapes = []
     for block in blocks:
@@ -82,7 +84,7 @@ def Segformer_B0(input_shape, num_classes):
 
     input_layer = keras.layers.Input(shape=input_shape[1:], batch_size = input_shape[0])
 
-    x = input_layer
+    x = resize_in(input_layer)
 
     encode_outputs = []
 
@@ -94,15 +96,6 @@ def Segformer_B0(input_shape, num_classes):
 
     x = predictor(x)
 
-    # x = softmax(x)
-
-    '''
-    x = flatten(x)
-    x = decode_input(x)
-    x = decode_hidden(x)
-    x = decode_output(x)
-    x = reshape_final(x)
-    '''
 
     x = resize(x)
 

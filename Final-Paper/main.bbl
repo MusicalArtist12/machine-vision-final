@@ -1,11 +1,24 @@
 \begin{thebibliography}{1}
 
-\bibitem{DBLP:journals/corr/abs-2010-11929}
-Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn,
-  Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg
-  Heigold, Sylvain Gelly, Jakob Uszkoreit, and Neil Houlsby.
-\newblock An image is worth 16x16 words: Transformers for image recognition at
-  scale.
-\newblock {\em CoRR}, abs/2010.11929, 2020.
+\bibitem{HLDI:SubaruEyeSight}
+Impact of {Subaru} collision avoidance features on insurance losses by rated
+  driver age.
+\newblock {\em Highway Data Loss Institute}, Vol. 36, No 25, 2019.
+
+\bibitem{HLDI:HondaFCW}
+Impact of {Honda Accord} collision avoidance features on claim frequency by
+  rated driver age.
+\newblock {\em Highway Data Loss Institute}, Vol. 38, No. 13, 2021.
+
+\bibitem{HLDI:KiaDriveWise}
+Impact of {Kia Drive Wise} collision avoidance features on insurance losses by
+  rated driver age.
+\newblock {\em Highway Data Loss Institute}, Vol. 38, No. 14, 2021.
+
+\bibitem{NHTSA:Overview-2022}
+National~Center for Statistics and Analysis.
+\newblock Overview of motor vehicle traffic crashes in 2022.
+\newblock {\em Traffic Safety Facts Research Note. Report No. DOT HS 813 560},
+  2024.
 
 \end{thebibliography}

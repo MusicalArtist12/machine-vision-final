@@ -38,19 +38,31 @@
 
     \section{Introduction}
 
-    \subsection{Background}
+    \subsection*{Background}
 
-    \subsubsection{Distracted Driving}
+    \subsubsection*{Tailgating}
 
-    \subsubsection{Semantic Segmentation}
+    According to the NHTSA in 2022, speeding accounted for 29\% of accident related fatalities, and 7.8\% of all fatalities involved at least one distracted driver \cite{NHTSA:Overview-2022}. While there are strategies to avoid crashes with an inattentive or aggressive driver, three studies released by the highway loss data institute (Subaru EyeSight, Kia Drive Wise, and Honda FCW/LDW) demonstrate that crash avoidance features may reduce the number of collision claims made, with young drivers experiencing the most benefit \cite{HLDI:SubaruEyeSight, HLDI:KiaDriveWise, HLDI:HondaFCW}. While the elderly population must still be considered, this trend in age may be explained by overall trends \cite{NHTSA:Overview-2022}. Newer cars are more expensive, and the goal of this project was to develop an app to help lower the financial barrier of entry from a modern car to a relatively recently made smartphone.
 
-    \subsubsection{Vision Transformers}
+    \subsubsection*{Semantic Segmentation}
+
+    Semantic segmentation was chosen since it provides an accurate width, without being overly complex to use. An object detection model such as YOLO would be useful in finding which cars are in front of the camera, but an accurate width requires an accurate edge to read against. instance detection may be useful for this, but it may have more overhead compared to semantic segmentation, where individual cars can be isolated by the width of the lane.
+
+    \subsubsection*{Vision Transformers}
 
     \section{Methods}
 
-    The SegFormer model was chose as it is a modern ViT model designed for semantic segmentation, and builds upon the basic ViT models demonstrated by Dosovitskiy, et. al. \cite{DBLP:journals/corr/abs-2010-11929} using
+    \subsection*{Neural Network}
+
+    \subsubsection*{Implementation Details}
+
+    \subsubsection*{Training}
+
+    \subsection*{Dataset}
 
     \section{Results}
+
+    \subsection*{Dice Loss, Binary IoU, no axis set}
 
     \section{Conclusion}
 
