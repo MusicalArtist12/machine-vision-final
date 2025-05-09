@@ -1,1 +1,1 @@
-from .Segformer import (Segformer_B0)
+from .Segformer import (Segformer_B0, Segformer_B5)
