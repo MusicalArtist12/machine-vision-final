@@ -68,7 +68,7 @@ def Segformer_B0(input_shape, num_classes):
     predictor = Predictor(decode_dim, num_classes)
     predictor.build(shape)
 
-    resize = ResizeLayer(input_shape[1], input_shape[2] // 4)
+    resize = ResizeLayer(input_shape[1], input_shape[2])
 
     # softmax = keras.layers.Softmax(axis = 2)
 
