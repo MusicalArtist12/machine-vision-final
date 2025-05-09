@@ -77,11 +77,11 @@ class ModelTrainer():
 
         print("Loading")
 
-        model = Segformer_B0(input_shape = (None, 720, 1280, 3), num_classes = 1)
+        model = Segformer_B0(input_shape = (None, 720 // 4, 1280 // 4, 3), num_classes = 1)
 
         print("Building")
 
-        model.build((None, 720, 1280, 3))
+        model.build((None, 720 // 4, 1280 // 4, 3))
 
         print("Compiling")
 
