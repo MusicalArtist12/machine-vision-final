@@ -87,6 +87,10 @@
             \hline
             Image Resolution & A smaller resolution allows for a larger direct batch \\ & size and faster processing. \\
             \hline
+            Learning Rate & How large can the optimizer make changes? \\
+            \hline
+            Number of Epochs & How long until it converges? \\
+            \hline
         \end{tabular}
     \end{center}
 
@@ -106,6 +110,8 @@
     The dataset was trained on a subset Berkeley DeepDive 100K dataset, modified to only include one class. There is no existing implementation of this dataset for Tensorflow, so to allow the efficient use of the dataset, a Tensorflow dataset was constructed using \texttt{tfds}. This dataset was chosen for its size and spread among a diverse set of environments.
 
     \subsection*{Training (and Finding the Correct Loss Function)}
+
+    Finding the correct loss to train this model was the most complex part of this project by far, and the major trials will be explained in the results section later on.
 
     \section{Results}
 
