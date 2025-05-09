@@ -49,7 +49,7 @@ def Segformer_B0(input_shape, num_classes):
     ]
 
 
-    shape = (input_shape[0], input_shape[1] // 4, input_shape[2] // 4, input_shape[3])
+    shape = (input_shape[0], input_shape[1], input_shape[2], input_shape[3])
 
     shapes = []
     for block in blocks:
@@ -68,7 +68,7 @@ def Segformer_B0(input_shape, num_classes):
     predictor = Predictor(decode_dim, num_classes)
     predictor.build(shape)
 
-    resize = ResizeLayer(input_shape[1] // 4, input_shape[2] // 4)
+    resize = ResizeLayer(input_shape[1], input_shape[2] // 4)
 
     # softmax = keras.layers.Softmax(axis = 2)
 
