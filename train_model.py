@@ -47,9 +47,9 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
 
             img_green = cv.addWeighted(image, 0.5, green, 0.5, 0)
 
-            result = np.where(mask == 255, img_green, image)
+            result = np.where(mask != 0, img_green, image)
 
-            results.append(mask)
+            results.append(result)
 
         file_writer = tf.summary.create_file_writer(self.log_path + '/val')
 
@@ -58,7 +58,7 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
 
 
 class ModelTrainer():
-    def __init__(self, log_path, batch_size, gradient_accumulation_steps, num_epochs, learning_rate, save_freq, save_model_path, backup_path, backup_freq, load_model_path = ""):
+    def __init__(self, log_path, batch_size, gradient_accumulation_steps, num_epochs, learning_rate, save_freq, save_model_path, backup_path, backup_freq, false_pos_pen, false_neg_pen, load_model_path = ""):
         self.load_model_path = load_model_path
         self.save_model_path = save_model_path
         self.gradient_accumulation_steps = gradient_accumulation_steps
@@ -69,6 +69,8 @@ class ModelTrainer():
         self.save_freq = save_freq
         self.backup_path = backup_path
         self.backup_freq = backup_freq
+        self.false_pos_pen = false_pos_pen
+        self.false_neg_pen = false_neg_pen
 
     def main(self):
         keras.backend.clear_session()
@@ -90,7 +92,8 @@ class ModelTrainer():
                 learning_rate = self.learning_rate,
                 gradient_accumulation_steps = self.gradient_accumulation_steps if self.gradient_accumulation_steps > 1 else None
             ),
-            loss = keras.losses.Tversky(alpha=0.9, beta=0.2),
+            # penalize false positives way more than false negatives
+            loss = keras.losses.Tversky(alpha=self.false_pos_pen, beta=self.false_neg_pen),
             metrics = [
                 keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU"),
                 keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU"),

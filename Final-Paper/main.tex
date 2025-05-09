@@ -100,11 +100,12 @@
 
     This project overwhelmingly used classes that inherited from \texttt{keras.Model} for every single layer since Keras does not permit multiple layers of inheriting \texttt{keras.layers.Layer} (as in, the \texttt{TransformerBlock} must be a \texttt{keras.Model} if it uses any layers implemented by the end user, or it will not "see" or train those weights).
 
-    \subsubsection*{Training}
 
     \subsection*{Dataset}
 
     The dataset was trained on a subset Berkeley DeepDive 100K dataset, modified to only include one class. There is no existing implementation of this dataset for Tensorflow, so to allow the efficient use of the dataset, a Tensorflow dataset was constructed using \texttt{tfds}. This dataset was chosen for its size and spread among a diverse set of environments.
+
+    \subsection*{Training (and Finding the Correct Loss Function)}
 
     \section{Results}
 
@@ -114,7 +115,7 @@
 
     \subsection*{Dice Loss, Binary IoU, Downscaled images, B2}
 
-    \subsection*{Tversky Loss, Binary IoU, Downscaled images, B2}
+    \subsection*{Tversky Loss, Binary IoU, Downscaled images, B0}
 
     \section{Conclusion}
 
