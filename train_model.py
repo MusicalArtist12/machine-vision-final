@@ -44,13 +44,10 @@ class VisualizeModelPredictions(keras.callbacks.Callback):
             image = element[0][0]
 
             green = np.full_like(image,(0,255,0))
-            blue = np.full_like(image, (255, 0, 0))
 
             img_green = cv.addWeighted(image, 0.5, green, 0.5, 0)
-            img_blue = cv.addWeighted(image, 0.5, blue, 0.5, 0)
 
             result = np.where(res == 255, img_green, image)
-            result = np.where(truth == 255, img_blue, result)
 
             results.append(result)
 
