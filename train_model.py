@@ -94,7 +94,10 @@ class ModelTrainer():
             metrics = [
                 keras.metrics.BinaryIoU(target_class_ids=[1], name="TrueIoU"),
                 keras.metrics.BinaryIoU(target_class_ids=[0], name="FalseIoU"),
-                keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU")
+                keras.metrics.BinaryIoU(target_class_ids=[0, 1], name="MeanIoU"),
+                keras.losses.Dice(axis=(0)),
+                keras.losses.Dice(axis=(1)),
+                keras.losses.Dice(axis=(2))
             ],
             run_eagerly = False,
             steps_per_execution = self.gradient_accumulation_steps,
