@@ -29,6 +29,21 @@ def normalize_img(image, mask):
 
     return (image_resized, mask_resized)
 
+def normalize_pretrain_img(image, mask):
+    """Normalizes images: `uint8` -> `float32`."""
+
+    # image = [720, 1280, 3], each pixel being [R, G, B], R, G, B in {x in float32 | 0.0 <= x <= 1.0}
+    # mask = [720, 1280, 1], each pixel being [P], P in {x in float32 | 0.0 <= x <= 1.0 }
+    image = tf.cast(image, tf.float32) / 255.0
+
+    resize = keras.layers.Resizing(720 // 4, 1280 // 4)
+
+    image_resized = resize(image)
+    mask_resized = resize(mask)
+
+    return (image_resized, image_resized)
+
+
 def load_data(batch_size) -> tuple[tf.data.Dataset, tf.data.Dataset]:
     (train, val) = tfds.load('bdd100k', split = ['train', 'val'], as_supervised = True)
 
@@ -42,3 +57,13 @@ def load_data(batch_size) -> tuple[tf.data.Dataset, tf.data.Dataset]:
     val = val.prefetch(tf.data.AUTOTUNE)
 
     return train, val
+
+def load_pretrain_data(batch_size) -> tf.data.Dataset:
+    (train, val) = tfds.load('bdd100k', split = ['train', 'val'], as_supervised = True)
+
+    train = train.map(normalize_pretrain_img, num_parallel_calls=tf.data.AUTOTUNE)
+
+    train = train.batch(batch_size)
+    train = train.prefetch(tf.data.AUTOTUNE)
+
+    return train

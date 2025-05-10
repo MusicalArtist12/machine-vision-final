@@ -59,11 +59,10 @@ class EncoderPreTrainer():
 
         print("Loading Data")
 
-        train, val = bdd100k.load_data(self.batch_size)
+        train, val = bdd100k.load_pretrain_data(self.batch_size)
 
         print("Training")
 
-        tensorboard_callback = keras.callbacks.TensorBoard(log_dir = self.log_path, update_freq = "batch")
 
 
         backup = keras.callbacks.BackupAndRestore(backup_dir = self.backup_path, save_freq = self.backup_freq)
@@ -71,6 +70,6 @@ class EncoderPreTrainer():
             x = train,
             epochs = self.num_epochs,
             verbose = 1,
-            callbacks = [tensorboard_callback, backup]
+            callbacks = [backup]
         )
         model.save_weights(self.save_model_path)
