@@ -47,6 +47,7 @@ class EncoderPreTrainer():
                 learning_rate = self.learning_rate,
                 gradient_accumulation_steps = self.gradient_accumulation_steps if self.gradient_accumulation_steps > 1 else None
             ),
+            loss = "binary_crossentropy",
             # penalize false positives way more than false negatives
             metrics = ["accuracy"],
             run_eagerly = False,
@@ -69,9 +70,6 @@ class EncoderPreTrainer():
         hist = model.fit(
             x = train,
             epochs = self.num_epochs,
-            validation_data = val,
-            validation_freq = 1,
-            validation_steps = 1,
             verbose = 1,
             callbacks = [tensorboard_callback, backup]
         )
