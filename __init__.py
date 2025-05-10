@@ -1,1 +1,1 @@
-from .train_model import (ModelTrainer)
+from .train_model import (ModelTrainer, EncoderPreTrainer)

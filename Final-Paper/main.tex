@@ -72,28 +72,6 @@
         \text{mIoU} = \frac{1}{c}\sum_{i=0}^{c}(\text{IoU}_i)
     \]
 
-    \subsubsection*{Hyperparameters}
-
-    \begin{center}
-        \begin{tabular}{| l | r |}
-            \hline
-            \textbf{Hyperparameter} & \textbf{Explanation} \\
-            \hline
-            MiT series & MiT-B0 through MiT-B5, see \cite{DBLP:journals/corr/abs-2105-15203}. \\
-            \hline
-            Batch Size & Largely dependent on system memory. \\
-            \hline
-            Gradient Accumulation Steps & permits the use of a smaller batch size. \\
-            \hline
-            Image Resolution & A smaller resolution allows for a larger direct batch \\ & size and faster processing. \\
-            \hline
-            Learning Rate & How large can the optimizer make changes? \\
-            \hline
-            Number of Epochs & How long until it converges? \\
-            \hline
-        \end{tabular}
-    \end{center}
-
     \section{Methods}
 
     \subsection*{Neural Network}
@@ -111,11 +89,47 @@
 
     \subsection*{Training (and Finding the Correct Loss Function)}
 
-    Finding the correct loss to train this model was the most complex part of this project by far, and the major trials will be explained in the results section later on.
+    Finding the correct loss to train this model was the most complex part of this project by far, and the major trials will be shown in the results section later on.
+
+    \subsubsection*{Binary Crossentropy}
+
+    Binary Crossentropy compares the difference between two probability distributions for a given random variable. This loss function was used in the original SegFormer paper.
+
+    \[
+        L_{CE}(y,t) = -\sum_{n=1}^{N}\log(t_n \cdot y_n)
+    \]
+
+    For a general semantic segmentation problem, this loss function has many advantages as a "Pixel Level" loss function \cite{azad2023lossfunctionserasemantic}. However, as shown in the results, this did not work for this problem, due to the inbalance of importance between the two classes. Moving forward I chose to use a "Region-Level" loss function.
+
+    \subsubsection*{Dice Loss}
+
+    Dice loss seemed very promising initially, as it the directly related Dice Coefficient measures the similarity between two sets of data, and is similar to the Intersection over Union. The dice coefficient is written as:
+
+    \[
+        \text{Dice Coefficient} = \frac{2 | Y \cap T | }{|Y| + |T|}
+    \]
+
+    Similar to mIoU, when there is more than one class, the average of all the losses for each class is used as the loss. Since there are two classes, and one class is significantly more important to identify than the other, this loss function struggled to provide accurate feedback, as it weighed the IoU of the background class the same as the target class\footnote{This was identified by monitoring the IoU of each class individually, and noting that the average IoU kept rising and the loss kept falling, but the target class never rose higher than 0.01.}.
+
+    \subsubsection*{Tversky Loss}
+
+    Enter Tversky Loss, the function that this project settled on. It allows the independent weighting of false positives and false negatives. It is based on the Tversky index, which is defined as\cite{azad2023lossfunctionserasemantic}:
+
+    \[
+        \text{Tversky Index} = \frac{| Y \cap T | }{|Y + T| + \alpha|Y/T| + \beta|Y/T|}
+    \]
+
+    Where $\alpha$ is the weight for false positives, and $\beta$ is the weight for false negatives. This loss function allows for these two extra hyperparameters to be optimized to maximize the correlation between loss and positive IoU.
+
+    \subsection*{Computational Power}
+
+    At the offset of this project, I initially planned to train this neural network on my own graphics card (a GTX 1070). This caused this project to run into many issues and slowed down training significantly as I would consistently run out of memory on the GPU. So, I conceeded and chose to use Google Colab instead, paying \$10 for 100 compute units so that I could use a Nvidia T4, with 16GB of VRAM and dedicated neural network compute units.
 
     \section{Results}
 
     \subsection*{Binary CrossEntropy, Binary IoU, B0}
+
+    This combination somehow resulted in the AdamW optimizer landing on a mean IoU of 0.5, with one class at 0.9 and the other near 0.001. It somehow found the one location in the entire training dataset where no cars are.
 
     \subsection*{Dice Loss, Binary IoU, no axis set, B0}
 
@@ -123,11 +137,38 @@
 
     \subsection*{Tversky Loss, Binary IoU, Downscaled images, B0}
 
+    This ended up being the secret combination needed for this project.
+
+    \subsubsection*{Hyperparameters}
+
+    \begin{center}
+        \begin{tabular}{ | l | r | }
+            \hline
+            \textbf{Hyperparameter} & \textbf{Explanation} \\
+            \hline
+            MiT series & B0. \\
+            \hline
+            Batch Size & 16 \\
+            \hline
+            Gradient Accumulation Steps & None (trained on Google Colab) \\
+            \hline
+            Image Resolution & Quarter Resolution (from dataset) \\
+            \hline
+            Learning Rate & 0.006 \\
+            \hline
+            Number of Epochs & 50 (To be determined) \\
+            \hline
+            $\alpha$ (False Positive Multipiler) & 0.9 \\
+            \hline
+            $\beta$ (False Negative Multipiler) & 0.2 \\
+            \hline
+        \end{tabular}
+    \end{center}
+
     \section{Conclusion}
 
     \newpage
     \bibliographystyle{apalike}
     \bibliography{refs} % Entries are in the refs.bib file
-
 
 \end{document}

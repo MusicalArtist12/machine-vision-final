@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.4.2)  9 MAY 2025 15:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.4.2)  9 MAY 2025 16:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -770,21 +770,28 @@ Package ragged2e Info: ABD: executing \RaggedRight on input line 38.
 [2]
 
 [3]
+Overfull \vbox (0.85152pt too high) has occurred while \output is active []
 
-[4] (./main.bbl)
 
-[5] (./main.aux)
+
+[4]
+
+[5{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+
+[6] (./main.bbl)
+
+[7] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 22265 strings out of 475171
- 475866 string characters out of 5767096
- 886009 words of memory out of 5000000
- 44864 multiletter control sequences out of 15000+600000
- 566219 words of font info for 62 fonts, out of 8000000 for 9000
+ 22270 strings out of 475171
+ 475946 string characters out of 5767096
+ 886028 words of memory out of 5000000
+ 44867 multiletter control sequences out of 15000+600000
+ 566556 words of font info for 63 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  98i,8n,105p,993b,266s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
@@ -797,11 +804,12 @@ t/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></
 usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (5 pages, 164415 bytes).
+f-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/t
+ype1/public/cm-super/sfrm1200.pfb>
+Output written on main.pdf (7 pages, 175932 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
- 66 compressed objects within 1 object stream
+ 138 PDF objects out of 1000 (max. 8388607)
+ 76 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  157 words of extra memory for PDF output out of 10000 (max. 10000000)
 

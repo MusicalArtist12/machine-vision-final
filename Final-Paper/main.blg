@@ -9,45 +9,45 @@ Warning--to sort, need author or key in HLDI:HondaFCW
 Warning--empty author in HLDI:SubaruEyeSight
 Warning--empty author in HLDI:HondaFCW
 Warning--empty author in HLDI:KiaDriveWise
-You've used 7 entries,
+You've used 8 entries,
             1935 wiz_defined-function locations,
-            510 strings with 5229 characters,
-and the built_in function-call counts, 2581 in all, are:
-= -- 226
-> -- 152
+            514 strings with 5479 characters,
+and the built_in function-call counts, 3038 in all, are:
+= -- 265
+> -- 195
 < -- 1
-+ -- 59
-- -- 56
-* -- 238
-:= -- 470
-add.period$ -- 21
-call.type$ -- 7
-change.case$ -- 63
-chr.to.int$ -- 6
-cite$ -- 16
-duplicate$ -- 91
-empty$ -- 150
-format.name$ -- 62
-if$ -- 472
++ -- 75
+- -- 72
+* -- 283
+:= -- 559
+add.period$ -- 23
+call.type$ -- 8
+change.case$ -- 76
+chr.to.int$ -- 7
+cite$ -- 17
+duplicate$ -- 101
+empty$ -- 165
+format.name$ -- 79
+if$ -- 551
 int.to.chr$ -- 2
 int.to.str$ -- 0
 missing$ -- 7
-newline$ -- 38
-num.names$ -- 12
-pop$ -- 53
+newline$ -- 42
+num.names$ -- 15
+pop$ -- 65
 preamble$ -- 1
-purify$ -- 63
+purify$ -- 76
 quote$ -- 0
-skip$ -- 74
+skip$ -- 82
 stack$ -- 0
-substring$ -- 89
+substring$ -- 101
 swap$ -- 7
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 42
+type$ -- 48
 warning$ -- 6
-while$ -- 8
+while$ -- 10
 width$ -- 0
-write$ -- 89
+write$ -- 99
 (There were 6 warnings)

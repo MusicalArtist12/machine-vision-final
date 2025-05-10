@@ -18,6 +18,12 @@
   losses by rated driver age.
 \newblock {\em Highway Data Loss Institute}, Vol. 38, No. 14.
 
+\bibitem[Azad et~al., 2023]{azad2023lossfunctionserasemantic}
+Azad, R., Heidary, M., Yilmaz, K., Hüttemann, M., Karimijafarbigloo, S., Wu,
+  Y., Schmeink, A., and Merhof, D. (2023).
+\newblock Loss functions in the era of semantic segmentation: A survey and
+  outlook.
+
 \bibitem[Dosovitskiy et~al., 2020]{DBLP:journals/corr/abs-2010-11929}
 Dosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn, D., Zhai, X.,
   Unterthiner, T., Dehghani, M., Minderer, M., Heigold, G., Gelly, S.,
