@@ -13,6 +13,33 @@ import sys
 
 import bdd100k_loader as bdd100k
 
+class VisualizeModelPredictions(keras.callbacks.Callback):
+    def __init__(self, log_path):
+        (_, val_data) = bdd100k.load_data(1)
+
+        self.val_data = tfds.as_numpy(val_data)
+        self.log_path = log_path
+
+    def on_epoch_begin(self, epoch, logs=None):
+        results = []
+        idx = 0
+        for element in self.val_data:
+            if idx > 25:
+                break
+            else:
+                idx += 1
+
+            res = self.model(element[0])
+            mask = res.numpy()[0] * 255
+
+            results.append(mask)
+
+        file_writer = tf.summary.create_file_writer(self.log_path + '/val')
+
+        with file_writer.as_default():
+            tf.summary.image("25 training data examples", results, max_outputs=25, step=epoch)
+
+
 class EncoderPreTrainer():
     def __init__(self, log_path, batch_size, gradient_accumulation_steps, num_epochs, learning_rate, save_freq, save_model_path, backup_path, backup_freq, false_pos_pen, false_neg_pen, load_model_path = ""):
         self.log_path = log_path
@@ -63,7 +90,7 @@ class EncoderPreTrainer():
 
         tensorboard_callback = keras.callbacks.TensorBoard(log_dir = self.log_path, update_freq = "batch")
 
-        visualization_callback = VisualizeModelPredictions( self.log_path)
+        visualization_callback = VisualizeModelPredictions(self.log_path)
 
         backup = keras.callbacks.BackupAndRestore(backup_dir = self.backup_path, save_freq = self.backup_freq)
         hist = model.fit(
