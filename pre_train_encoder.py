@@ -15,6 +15,7 @@ import bdd100k_loader as bdd100k
 
 class EncoderPreTrainer():
     def __init__(self, log_path, batch_size, gradient_accumulation_steps, num_epochs, learning_rate, save_freq, save_model_path, backup_path, backup_freq, false_pos_pen, false_neg_pen, load_model_path = ""):
+        self.log_path = log_path
         self.load_model_path = load_model_path
         self.save_model_path = save_model_path
         self.gradient_accumulation_steps = gradient_accumulation_steps
