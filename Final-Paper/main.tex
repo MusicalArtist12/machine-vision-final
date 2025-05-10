@@ -137,35 +137,13 @@
 
     \subsection*{Tversky Loss, Binary IoU, Downscaled images, B0}
 
-    This ended up being the secret combination needed for this project.
-
-    \subsubsection*{Hyperparameters}
-
-    \begin{center}
-        \begin{tabular}{ | l | r | }
-            \hline
-            \textbf{Hyperparameter} & \textbf{Explanation} \\
-            \hline
-            MiT series & B0. \\
-            \hline
-            Batch Size & 16 \\
-            \hline
-            Gradient Accumulation Steps & None (trained on Google Colab) \\
-            \hline
-            Image Resolution & Quarter Resolution (from dataset) \\
-            \hline
-            Learning Rate & 0.006 \\
-            \hline
-            Number of Epochs & 50 (To be determined) \\
-            \hline
-            $\alpha$ (False Positive Multipiler) & 0.9 \\
-            \hline
-            $\beta$ (False Negative Multipiler) & 0.2 \\
-            \hline
-        \end{tabular}
-    \end{center}
-
     \section{Conclusion}
+
+    As i'm writing this, I'm hoping my model reaches a high enough accuracy to work for the final. But what killed this project ultimately is the lack of detail on the original paper on how they pretrained their model. They spend a total of one sentence on pretraining, which is unhelpful to say the least. I've run out of time to complete this project.
+
+    With that being said, I've learned a ton about transformer based neural networks and semantic segmentation. If I had time to pretrain the encoder, I'd design a pretext task based on the ImageNet-1K dataset. Pretraining the encoder may be outside of my current knowledge base, however. I wouldn't use tensorflow or keras, and would probably use the framework that best supports the model.
+
+    This was a fun challenge.
 
     \newpage
     \bibliographystyle{apalike}
