@@ -59,7 +59,7 @@ class EncoderPreTrainer():
 
         print("Loading Data")
 
-        train, val = bdd100k.load_pretrain_data(self.batch_size)
+        train = bdd100k.load_pretrain_data(self.batch_size)
 
         print("Training")
 
